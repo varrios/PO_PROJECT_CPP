@@ -7,7 +7,11 @@
 
 
 class Swiat {
-
+private:
+    int szerokosc;
+    int wysokosc;
+    int tura;
+    int iloscOrganizmow;
 };
 
 

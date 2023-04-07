@@ -6,7 +6,10 @@
 #define PO_PROJECT_CPP_ROSLINA_H
 
 
-class Roslina {
+#include "Organizm.h"
+
+class Roslina : Organizm{
+private:
 
 };
 

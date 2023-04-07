@@ -4,10 +4,14 @@
 
 #ifndef PO_PROJECT_CPP_ZWIERZE_H
 #define PO_PROJECT_CPP_ZWIERZE_H
+#include "Organizm.h"
 
 
-class Zwierze {
-
+class Zwierze : Organizm {
+public:
+    void akcja() override = 0;
+    virtual void kolizja() = 0;
+    virtual void rysowanie() = 0;
 };
 
 

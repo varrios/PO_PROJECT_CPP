@@ -6,7 +6,7 @@
 			[
 				{
 					"build" : ".",
-					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.21"
@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "PO_PROJECT_CPP::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-PO_PROJECT_CPP-Debug-85f451676ead50cfab37.json",
+					"jsonFile" : "target-PO_PROJECT_CPP-Debug-495ec9a8fa721633512b.json",
 					"name" : "PO_PROJECT_CPP",
 					"projectIndex" : 0
 				}
@@ -49,12 +49,12 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "G:/git/PO_PROJECT_CPP/cmake-build-debug",
-		"source" : "G:/git/PO_PROJECT_CPP"
+		"build" : "/Users/lucjangackowski/Documents/git/PO_PROJECT_CPP/cmake-build-debug",
+		"source" : "/Users/lucjangackowski/Documents/git/PO_PROJECT_CPP"
 	},
 	"version" : 
 	{
 		"major" : 2,
-		"minor" : 3
+		"minor" : 4
 	}
 }
