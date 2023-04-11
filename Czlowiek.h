@@ -5,8 +5,9 @@
 #ifndef PO_PROJECT_CPP_CZLOWIEK_H
 #define PO_PROJECT_CPP_CZLOWIEK_H
 #include "Organizm.h"
+#include "Zwierze.h"
 
-class Czlowiek : Organizm {
+class Czlowiek : Zwierze {
 
 };
 

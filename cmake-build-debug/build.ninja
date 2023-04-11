@@ -48,37 +48,37 @@ build cmake_object_order_depends_target_PO_PROJECT_CPP: phony || CMakeFiles/PO_P
 
 build CMakeFiles/PO_PROJECT_CPP.dir/main.cpp.o: CXX_COMPILER__PO_PROJECT_CPP_Debug /Users/lucjangackowski/Documents/git/PO_PROJECT_CPP/main.cpp || cmake_object_order_depends_target_PO_PROJECT_CPP
   DEP_FILE = CMakeFiles/PO_PROJECT_CPP.dir/main.cpp.o.d
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -mmacosx-version-min=13.0 -std=gnu++14
+  FLAGS = -lncurses -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -mmacosx-version-min=13.0 -std=gnu++14
   OBJECT_DIR = CMakeFiles/PO_PROJECT_CPP.dir
   OBJECT_FILE_DIR = CMakeFiles/PO_PROJECT_CPP.dir
 
 build CMakeFiles/PO_PROJECT_CPP.dir/Swiat.cpp.o: CXX_COMPILER__PO_PROJECT_CPP_Debug /Users/lucjangackowski/Documents/git/PO_PROJECT_CPP/Swiat.cpp || cmake_object_order_depends_target_PO_PROJECT_CPP
   DEP_FILE = CMakeFiles/PO_PROJECT_CPP.dir/Swiat.cpp.o.d
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -mmacosx-version-min=13.0 -std=gnu++14
+  FLAGS = -lncurses -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -mmacosx-version-min=13.0 -std=gnu++14
   OBJECT_DIR = CMakeFiles/PO_PROJECT_CPP.dir
   OBJECT_FILE_DIR = CMakeFiles/PO_PROJECT_CPP.dir
 
 build CMakeFiles/PO_PROJECT_CPP.dir/Organizm.cpp.o: CXX_COMPILER__PO_PROJECT_CPP_Debug /Users/lucjangackowski/Documents/git/PO_PROJECT_CPP/Organizm.cpp || cmake_object_order_depends_target_PO_PROJECT_CPP
   DEP_FILE = CMakeFiles/PO_PROJECT_CPP.dir/Organizm.cpp.o.d
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -mmacosx-version-min=13.0 -std=gnu++14
+  FLAGS = -lncurses -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -mmacosx-version-min=13.0 -std=gnu++14
   OBJECT_DIR = CMakeFiles/PO_PROJECT_CPP.dir
   OBJECT_FILE_DIR = CMakeFiles/PO_PROJECT_CPP.dir
 
 build CMakeFiles/PO_PROJECT_CPP.dir/Roslina.cpp.o: CXX_COMPILER__PO_PROJECT_CPP_Debug /Users/lucjangackowski/Documents/git/PO_PROJECT_CPP/Roslina.cpp || cmake_object_order_depends_target_PO_PROJECT_CPP
   DEP_FILE = CMakeFiles/PO_PROJECT_CPP.dir/Roslina.cpp.o.d
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -mmacosx-version-min=13.0 -std=gnu++14
+  FLAGS = -lncurses -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -mmacosx-version-min=13.0 -std=gnu++14
   OBJECT_DIR = CMakeFiles/PO_PROJECT_CPP.dir
   OBJECT_FILE_DIR = CMakeFiles/PO_PROJECT_CPP.dir
 
 build CMakeFiles/PO_PROJECT_CPP.dir/Zwierze.cpp.o: CXX_COMPILER__PO_PROJECT_CPP_Debug /Users/lucjangackowski/Documents/git/PO_PROJECT_CPP/Zwierze.cpp || cmake_object_order_depends_target_PO_PROJECT_CPP
   DEP_FILE = CMakeFiles/PO_PROJECT_CPP.dir/Zwierze.cpp.o.d
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -mmacosx-version-min=13.0 -std=gnu++14
+  FLAGS = -lncurses -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -mmacosx-version-min=13.0 -std=gnu++14
   OBJECT_DIR = CMakeFiles/PO_PROJECT_CPP.dir
   OBJECT_FILE_DIR = CMakeFiles/PO_PROJECT_CPP.dir
 
 build CMakeFiles/PO_PROJECT_CPP.dir/Czlowiek.cpp.o: CXX_COMPILER__PO_PROJECT_CPP_Debug /Users/lucjangackowski/Documents/git/PO_PROJECT_CPP/Czlowiek.cpp || cmake_object_order_depends_target_PO_PROJECT_CPP
   DEP_FILE = CMakeFiles/PO_PROJECT_CPP.dir/Czlowiek.cpp.o.d
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -mmacosx-version-min=13.0 -std=gnu++14
+  FLAGS = -lncurses -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -mmacosx-version-min=13.0 -std=gnu++14
   OBJECT_DIR = CMakeFiles/PO_PROJECT_CPP.dir
   OBJECT_FILE_DIR = CMakeFiles/PO_PROJECT_CPP.dir
 
@@ -91,7 +91,7 @@ build CMakeFiles/PO_PROJECT_CPP.dir/Czlowiek.cpp.o: CXX_COMPILER__PO_PROJECT_CPP
 # Link the executable PO_PROJECT_CPP
 
 build PO_PROJECT_CPP: CXX_EXECUTABLE_LINKER__PO_PROJECT_CPP_Debug CMakeFiles/PO_PROJECT_CPP.dir/main.cpp.o CMakeFiles/PO_PROJECT_CPP.dir/Swiat.cpp.o CMakeFiles/PO_PROJECT_CPP.dir/Organizm.cpp.o CMakeFiles/PO_PROJECT_CPP.dir/Roslina.cpp.o CMakeFiles/PO_PROJECT_CPP.dir/Zwierze.cpp.o CMakeFiles/PO_PROJECT_CPP.dir/Czlowiek.cpp.o
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -mmacosx-version-min=13.0
+  FLAGS = -lncurses -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -mmacosx-version-min=13.0
   OBJECT_DIR = CMakeFiles/PO_PROJECT_CPP.dir
   POST_BUILD = :
   PRE_LINK = :

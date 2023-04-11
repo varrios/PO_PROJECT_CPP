@@ -9,9 +9,7 @@
 
 class Zwierze : Organizm {
 public:
-    void akcja() override = 0;
-    virtual void kolizja() = 0;
-    virtual void rysowanie() = 0;
+
 };
 
 

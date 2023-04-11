@@ -12,6 +12,14 @@ private:
     int wysokosc;
     int tura;
     int iloscOrganizmow;
+    char **plansza;
+public:
+    Swiat(int szerokosc, int wysokosc);
+    ~Swiat();
+    void wypiszSwiat() const;
+    void wykonajTure();
+
+
 };
 
 
