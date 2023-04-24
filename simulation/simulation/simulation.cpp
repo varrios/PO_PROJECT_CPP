@@ -40,6 +40,15 @@ int main()
         case 'q':
             exit(0);
             break;
+        case 'S':
+        case 's':
+            swiat.zapiszGre();
+            break;
+        case 'L':
+        case 'l':
+            swiat.wczytajGre();
+            break;
         }
+        swiat.wypiszSwiat();
     }
 }

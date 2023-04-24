@@ -3,6 +3,7 @@
 #include <memory>
 #include "Organizm.h"
 #include "Zwierze.h"
+#include "Roslina.h"
 using namespace std;
 
 class Zwierze;
@@ -27,6 +28,7 @@ public:
     void odswiezMape();
     vector <Organizm*>* getlistaOrganizmow();
     Organizm*** getPlansza();
-
+    void wczytajGre();
+    void zapiszGre();
 };
 

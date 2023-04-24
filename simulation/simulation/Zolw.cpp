@@ -34,7 +34,7 @@ void Zolw::akcja() {
 	uniform_int_distribution<int> distribution(0, 3);
 	if (distribution(gen) != 3) {
 		char str[80];
-		sprintf_s(str, "Zolw nie wykonal ruchu");
+		sprintf_s(str, "Zolw (x: %d, y: %d) nie wykonal ruchu", this->getX(), this->getY());
 		puts(str);
 		return;
 	}

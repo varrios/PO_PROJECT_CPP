@@ -1,12 +1,11 @@
+#include "Swiat.h"
 #include "Zwierze.h"
 #include "Zolw.h"
-#include "Swiat.h"
 #include <typeinfo>
 #include <vector>
 #include <random>
 #include<windows.h>  
 using namespace std;
-
 Zwierze::Zwierze() {
 }
 
@@ -54,45 +53,9 @@ auto Zwierze::losujKierunek() {
     return wynik{ x_docelowy, y_docelowy, this->swiat->getPlansza()[y_docelowy][x_docelowy] };
 }
 
-Punkt Zwierze::losujKierunekNiezajety() {
-    vector <int> kierunki;
-    Organizm*** plansza = this->swiat->getPlansza();
-    if (this->polozenie.x + 1 <= swiat->getSzerokosc() - 1 && plansza[this->polozenie.y][this->polozenie.x + 1] == nullptr)
-        kierunki.push_back(0);
-    if (this->polozenie.x - 1 >= 0 && plansza[this->polozenie.y][this->polozenie.x - 1] == nullptr)
-        kierunki.push_back(1);
-    if (this->polozenie.y + 1 <= swiat->getWysokosc() - 1 && plansza[this->polozenie.y + 1][this->polozenie.x] == nullptr)
-        kierunki.push_back(2);
-    if (this->polozenie.y - 1 >= 0 && plansza[this->polozenie.y - 1][this->polozenie.x] == nullptr)
-        kierunki.push_back(3);
-    if (kierunki.size() == 0) {
-        return Punkt(-1,-1);
-    }
-    random_device rd;
-    mt19937 gen(rd());
-    uniform_int_distribution<int> distribution(0, kierunki.size() - 1);
-    int los_kierunek = kierunki[distribution(gen)];
-    int x_dziecka = this->getX();
-    int y_dziecka = this->getY();
-    switch (los_kierunek) {
-    case 0:
-        x_dziecka++;
-        break;
-    case 1:
-        x_dziecka--;
-        break;
-    case 2:
-        y_dziecka++;
-        break;
-    case 3:
-        y_dziecka--;
-        break;
-    }
-    return Punkt(x_dziecka,y_dziecka);
-}
-
 void Zwierze::akcja() {
     this->wiek++;
+    this->setStanOrg(false);
     this->polozenie_wczesniejsze = Punkt(this->getX(), this->getY());
     auto wynik = this->losujKierunek();
     if (this->czyMaDobryWech()) {
@@ -119,10 +82,9 @@ void Zwierze::akcja() {
 }
 
 void Zwierze::kolizja(Organizm *organizmAtakowany) {
-    char str[80];
+    char str[128];
     //ROZMNAZANIE
    if (sprawdzGatunki(organizmAtakowany)) {
-       
        if (this->wiek >= 5 && organizmAtakowany->getWiek() >= 5) {
            this->rozmnoz();
            return;
@@ -130,12 +92,25 @@ void Zwierze::kolizja(Organizm *organizmAtakowany) {
        sprintf_s(str, "Rezultat w.w. ruchu %s - rozmnazanie nieudane - za maly wiek", typeid(*this).name());
        puts(str);
        return;
-
     }
    //WALKA
     else {
-        if (organizmAtakowany->czyOdpartoAtak(this)) {
-            sprintf_s(str, "Rezultat w.w. ruchu - %s odbija atak %s (x: %d y: %d)", typeid(*organizmAtakowany).name(), typeid(*this).name(), this->getX(), this->getY());
+       if (organizmAtakowany->dodajeSile(this)) {
+           sprintf_s(str, "Rezultat w.w. ruchu - %s zjada %s i dostaje wiecej sily. Aktualna sila: %d (%d, %d)", typeid(*this).name(), typeid(*organizmAtakowany).name(), this->getSila(),organizmAtakowany->getX() , organizmAtakowany->getY());
+           organizmAtakowany->umrzyj();
+           this->wykonajRuch(organizmAtakowany->getX(), organizmAtakowany->getY());
+           puts(str);
+           return;
+        }
+        if (organizmAtakowany->czyTrujacy()) {
+           organizmAtakowany->umrzyj();
+           this->umrzyj();
+           sprintf_s(str, "Rezultat w.w. ruchu - %s zjada %s i umiera (%d, %d)", typeid(*this).name(), typeid(*organizmAtakowany).name(),organizmAtakowany->getX(), organizmAtakowany->getY());
+           puts(str);
+           return;
+        }
+        else if (organizmAtakowany->czyOdpartoAtak(this)) {
+            sprintf_s(str, "Rezultat w.w. ruchu - %s odbija atak %s (%d, %d)", typeid(*organizmAtakowany).name(), typeid(*this).name(), organizmAtakowany->getX(), organizmAtakowany->getY());
             puts(str);
             return;
         }
@@ -145,7 +120,7 @@ void Zwierze::kolizja(Organizm *organizmAtakowany) {
             return;
         }
         else if (this->getSila() >= organizmAtakowany->getSila()) {
-            sprintf_s(str, "Rezultat w.w. ruchu - %s zabija %s (x: %d y: %d)", typeid(*this).name(), typeid(*organizmAtakowany).name(), this->getX(), this->getY());
+            sprintf_s(str, "Rezultat w.w. ruchu - %s zabija %s (%d, %d)", typeid(*this).name(), typeid(*organizmAtakowany).name(), organizmAtakowany->getX(), organizmAtakowany->getY());
             puts(str);
             organizmAtakowany->umrzyj();
             this->wykonajRuch(organizmAtakowany->getX(), organizmAtakowany->getY());
@@ -153,7 +128,7 @@ void Zwierze::kolizja(Organizm *organizmAtakowany) {
         }
         else 
         {
-            sprintf_s(str, "Rezultat w.w. ruchu - %s zabija %s (x: %d y: %d)",typeid(*organizmAtakowany).name(), typeid(*this).name(), this->getX(), this->getY());
+            sprintf_s(str, "Rezultat w.w. ruchu - %s zabija %s (%d, %d)",typeid(*organizmAtakowany).name(), typeid(*this).name(), organizmAtakowany->getX(), organizmAtakowany->getY());
             puts(str);
             this->umrzyj();
             this->swiat->getPlansza()[organizmAtakowany->getY()][organizmAtakowany->getX()] = organizmAtakowany;
@@ -161,23 +136,6 @@ void Zwierze::kolizja(Organizm *organizmAtakowany) {
         }
     }
 
-}
-
-void Zwierze::umrzyj() {
-    vector <Organizm*> *wektorOrg = (this->swiat->getlistaOrganizmow());
-    this->swiat->getPlansza()[this->getY()][this->getX()] = nullptr;
-    wektorOrg->erase(remove(wektorOrg->begin(), wektorOrg->end(), this), wektorOrg->end());
-}
-
-void Zwierze::rozmnoz() {
-    Punkt miejsce_dziecka = this->losujKierunekNiezajety();
-    if (miejsce_dziecka.x == -1)
-        return;
-    Organizm* dziecko = this->stworzDziecko(miejsce_dziecka.x, miejsce_dziecka.y);
-    this->swiat->dodajOrganizm(dziecko);
-    char str[80];
-    sprintf_s(str, "Rezultat w.w. ruchu - rozmnazanie %s (x: %d y: %d)", typeid(*this).name(), miejsce_dziecka.x, miejsce_dziecka.y);
-    puts(str);
 }
 
 void Zwierze::wykonajRuch(int x, int y) {
@@ -191,10 +149,3 @@ bool Zwierze::czyMaDobryWech() const {
     return false;
 }
 
-bool Zwierze::czyOdpartoAtak(Organizm* organizmAtakujacy) {
-    return false;
-}
-
-bool Zwierze::czyUcieczka(Organizm* organizmAtakujacy) {
-    return false;
-}
