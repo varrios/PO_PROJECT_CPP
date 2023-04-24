@@ -1,3 +1,0 @@
-/Users/lucjangackowski/Documents/git/PO_PROJECT_CPP/build/CMakeFiles/PO_PROJECT_CPP.dir
-/Users/lucjangackowski/Documents/git/PO_PROJECT_CPP/build/CMakeFiles/edit_cache.dir
-/Users/lucjangackowski/Documents/git/PO_PROJECT_CPP/build/CMakeFiles/rebuild_cache.dir
