@@ -1,3 +1,0 @@
-G:/git/PO_PROJECT_CPP/cmake-build-debug/CMakeFiles/edit_cache.dir
-G:/git/PO_PROJECT_CPP/cmake-build-debug/CMakeFiles/PO_PROJECT_CPP.dir
-G:/git/PO_PROJECT_CPP/cmake-build-debug/CMakeFiles/rebuild_cache.dir
