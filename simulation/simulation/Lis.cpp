@@ -7,6 +7,7 @@ Lis::Lis(int x, int y, Swiat* swiat) {
 	this->sila = 3;
 	this->inicjatywa = 7;
 	this->polozenie = Punkt(x, y);
+	this->znak = 'L';
 }
 
 Organizm* Lis::stworzDziecko(int x, int y) {

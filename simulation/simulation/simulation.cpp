@@ -21,6 +21,7 @@ int main()
     Swiat swiat(10, 10);
     swiat.stworzPopulacje();
     Czlowiek* czlowiek = new Czlowiek(0, 0, &swiat);
+    swiat.ustawGracza(czlowiek);
     swiat.dodajOrganizm(czlowiek);
     int ch;
     swiat.wypiszSwiat();
@@ -32,7 +33,7 @@ int main()
         case ARROW_DOWN:
         case ARROW_LEFT:
         case ARROW_RIGHT:
-            czlowiek->setWybor(ch);
+            swiat.getGracz()->setWybor(ch);
             swiat.wykonajTure();
             swiat.wypiszSwiat();
             break;

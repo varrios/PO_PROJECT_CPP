@@ -8,6 +8,7 @@ Antylopa::Antylopa(int x, int y, Swiat* swiat) {
 	this->sila = 4;
 	this->inicjatywa = 4;
 	this->polozenie = Punkt(x, y);
+	this->znak = 'A';
 }
 
 Organizm* Antylopa::stworzDziecko(int x, int y) {

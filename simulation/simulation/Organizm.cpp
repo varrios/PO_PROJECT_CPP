@@ -8,6 +8,9 @@ Organizm::Organizm() {
     nowy_organizm = false;
 }
 
+Organizm::~Organizm() {
+}
+
 bool Organizm::getStanOrg() const {
     return this->nowy_organizm;
 }
@@ -109,4 +112,13 @@ bool Organizm::dodajeSile(Organizm* organizmAtakujacy) {
 
 void Organizm::setSila(int sila) {
     this->sila = sila;
+}
+
+char Organizm::getZnak() const{
+    return this->znak;
+}
+
+
+void Organizm::setWiek(int wiek) {
+    this->wiek = wiek;
 }

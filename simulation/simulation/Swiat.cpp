@@ -14,6 +14,7 @@
 #include "BarszczSosnowskiego.h"
 #include "Trawa.h"
 #include "WilczeJagody.h"
+#include "Czlowiek.h"
 #include "Guarana.h"
 #include <string>
 #include <windows.h>
@@ -37,6 +38,14 @@ Swiat::Swiat(int szerokosc, int wysokosc) : szerokosc(szerokosc), wysokosc(wysok
             plansza[i][j] = nullptr;
         }
     }
+}
+
+void Swiat::ustawGracza(Czlowiek* gracz) {
+    this->gracz = gracz;
+}
+
+Czlowiek* Swiat::getGracz() {
+    return this->gracz;
 }
 
 void Swiat::wypiszSwiat(){
@@ -149,47 +158,81 @@ vector <Organizm*>* Swiat::getlistaOrganizmow() {
 }
 
 void Swiat::wczytajGre() {
-    ifstream file("save_file.txt");
-    if (file.is_open()) {
-        for (int i = 0; i < szerokosc; i++) {
-            for (int j = 0; j < wysokosc; j++) {
-                delete this->plansza[i][j];
+    clrscr();
+    gotoxy(0, 0);
+    puts("Podaj nazwe pliku do wczytania:");
+    string nazwa_pliku;
+    string nazwa_folderu = "zapisy/";
+    string rozszerzenie = ".txt";
+
+    char c;
+    while ((c = getch()) != '\r') {
+        if (c == '\b') {
+            if (!nazwa_pliku.empty()) {
+                nazwa_pliku.erase(nazwa_pliku.size() - 1);
+                cout << "\b \b";
             }
+        }
+        else {
+            nazwa_pliku += c;
+            putch(c);
+        }
+    }
+    ifstream plik(nazwa_folderu + nazwa_pliku + rozszerzenie);
+    if (plik.is_open()) {
+        this->UsunOrganizmy();
+
+        for (int i = 0; i < wysokosc; i++) {
             delete[] this->plansza[i];
         }
         delete[] this->plansza;
-        for (auto& org : listaOrganizmow)
-            delete org;
 
         int s, w, t, ilo;
-        file >> s >> w >> t >> ilo;
+        plik >> s >> w >> t >> ilo;
         this->szerokosc = s;
         this->wysokosc = w;
         this->tura = t;
         this->iloscOrganizmow = ilo;
+       
 
-        this->listaOrganizmow.clear();
-        for (int i = 0; i < ilo; i++) {
-            Organizm* org;
-            file >> org;
-            this->listaOrganizmow.push_back(org);
-        }
-        
-
-        Organizm*** plansza = new Organizm **[szerokosc];
-        for (int x = 0; x < szerokosc; x++) {
-            plansza[x] = new Organizm * [wysokosc];
-        }
-        for (int y = 0; y < wysokosc; y++) {
-            for (int x = 0; x < szerokosc; x++) {
-                Organizm* org;
-                file >> org;
-                plansza[x][y] = org;
+        this->plansza = new Organizm * *[wysokosc];
+        for (int i = 0; i < wysokosc; i++) {
+            plansza[i] = new Organizm * [szerokosc];
+            for (int j = 0; j < szerokosc; j++) {
+                plansza[i][j] = nullptr;
             }
         }
-        this->plansza = plansza;
 
-        file.close();
+        for (int i = 0; i < ilo; i++) {
+            char znak;
+            int x, y, wiek, sila;
+            bool stan;
+            plik >> znak;
+            plik >> x;
+            plik >> y;
+            plik >> wiek;
+            plik >> stan;
+            plik >> sila;
+            Organizm* nowy_organizm = this->odczytajOrganizm(znak, x, y);
+            if (nowy_organizm == nullptr)
+                continue;
+            nowy_organizm->setStanOrg(stan);
+            nowy_organizm->setWiek(wiek);
+            nowy_organizm->setSila(sila);
+            this->dodajOrganizm(nowy_organizm);
+        }
+        cout << "\nWczytano poprawnie gre " << nazwa_pliku << "\n";
+        cout << "\nKliknij przycisk na klawiaturze zeby kontynuowac gre...";
+        getch();
+        clrscr();
+        plik.close();
+        return;
+    }
+    else {
+        cout << "\nNie mozna wczytac gry o nazwie: " << nazwa_pliku << "\n";
+        cout << "\nKliknij przycisk na klawiaturze zeby kontynuowac gre...";
+        getch();
+        clrscr();
     }
 }
 
@@ -223,7 +266,13 @@ void Swiat::zapiszGre() {
         plik << iloscOrganizmow << endl;
 
         for (Organizm* org : listaOrganizmow) {
-            plik << &org << endl;
+            plik << org->getZnak() << endl;
+            plik << org->getX() << endl;
+            plik << org->getY() << endl;
+            plik << org->getWiek() << endl;
+            plik << org->getStanOrg() << endl;
+            plik << org->getSila() << endl;
+                
         }
 
         for (int y = 0; y < wysokosc; y++) {
@@ -237,4 +286,48 @@ void Swiat::zapiszGre() {
     getch();
     clrscr();
     
+}
+
+
+Organizm* Swiat::odczytajOrganizm(int znak, int x, int y) {
+    switch (znak) {
+    case 'A':
+        return new Antylopa(x, y, this);
+    case 'B':
+        return new BarszczSosnowskiego(x, y, this);
+    case 'C':
+    {
+        Czlowiek* nowy_czlowiek = new Czlowiek(x, y, this);
+        this->ustawGracza(nowy_czlowiek);
+        return nowy_czlowiek;
+        break;
+    }
+    case 'G':
+        return new Guarana(x, y, this);
+    case 'L':
+        return new Lis(x, y, this);
+    case 'M':
+        return new Mlecz(x, y, this);
+    case 'O':
+        return new Owca(x, y, this);
+    case 'T':
+        return new Trawa(x, y, this);
+    case 'J':
+        return new WilczeJagody(x, y, this);
+    case 'W':
+        return new Wilk(x, y, this);
+    case 'Z':
+        return new Zolw(x, y, this);
+    default:
+        return nullptr;
+    }
+}
+
+
+void Swiat::UsunOrganizmy() {
+    for (auto& org : listaOrganizmow) {
+        if (org != nullptr)
+            delete org;
+    }
+    this->listaOrganizmow.clear();
 }

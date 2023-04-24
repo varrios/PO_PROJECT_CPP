@@ -7,6 +7,7 @@ Owca::Owca(int x, int y, Swiat* swiat) {
 	this->inicjatywa = 4;
 	this->polozenie = Punkt(x, y);
 	this->zasieg = 1;
+	this->znak = 'O';
 }
 
 Organizm* Owca::stworzDziecko(int x, int y) {

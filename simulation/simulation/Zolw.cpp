@@ -10,6 +10,7 @@ Zolw::Zolw(int x, int y, Swiat* swiat) {
 	this->inicjatywa = 1;
 	this->polozenie = Punkt(x, y);
 	this->zasieg = 1;
+	this->znak = 'Z';
 }
 
 Organizm* Zolw::stworzDziecko(int x, int y) {

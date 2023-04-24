@@ -4,6 +4,7 @@ class Swiat;
 
 class Organizm {
 protected:
+    char znak;
     bool nowy_organizm;
     Punkt polozenie;
     Punkt polozenie_wczesniejsze;
@@ -13,6 +14,7 @@ protected:
     Swiat* swiat;
 public:
     Organizm();
+    ~Organizm();
     virtual void akcja() = 0;
     virtual void rysowanie() = 0;
     virtual void kolizja(Organizm* organizmAtakujacy) = 0;
@@ -27,6 +29,7 @@ public:
     void rozmnoz();
     void umrzyj();
 
+    void setWiek(int wiek);
     void setStanOrg(bool stan);
     void setSila(int sila);
     bool getStanOrg() const;
@@ -35,6 +38,6 @@ public:
     int getInicjatywa() const;
     int getSila() const;
     int getWiek() const;
-
+    char getZnak() const;
 };
 

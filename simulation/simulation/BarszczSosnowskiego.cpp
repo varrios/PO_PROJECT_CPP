@@ -7,6 +7,7 @@ BarszczSosnowskiego::BarszczSosnowskiego(int x, int y, Swiat* swiat) {
 	this->sila = 99;
 	this->inicjatywa = 0;
 	this->polozenie = Punkt(x, y);
+	this->znak = 'B';
 }
 
 void BarszczSosnowskiego::rysowanie() {

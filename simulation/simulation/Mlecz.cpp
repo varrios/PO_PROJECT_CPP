@@ -7,6 +7,7 @@ Mlecz::Mlecz(int x, int y, Swiat* swiat) {
 	this->sila = 0;
 	this->inicjatywa = 0;
 	this->polozenie = Punkt(x, y);
+	this->znak = 'M';
 }
 
 void Mlecz::rysowanie() {
