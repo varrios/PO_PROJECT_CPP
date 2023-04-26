@@ -22,6 +22,7 @@ public:
     virtual Punkt losujKierunekNiezajety();
 
     virtual bool czyOdpartoAtak(Organizm* organizmAtakowany);
+    virtual bool JestNiesmiertelny();
     virtual bool czyUcieczka(Organizm* organizmAtakujacy);
     virtual bool dodajeSile(Organizm* organizmAtakujacy);
     virtual bool czyTrujacy();

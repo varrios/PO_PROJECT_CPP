@@ -49,6 +49,10 @@ int main()
         case 'l':
             swiat.wczytajGre();
             break;
+        case 'U':
+        case 'u':
+            swiat.getGracz()->uzyjUmiejetnosci();
+            break;
         }
         swiat.wypiszSwiat();
     }

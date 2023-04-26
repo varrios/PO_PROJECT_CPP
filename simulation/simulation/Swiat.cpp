@@ -49,10 +49,13 @@ Czlowiek* Swiat::getGracz() {
 }
 
 void Swiat::wypiszSwiat(){
+    _setcursortype(_NOCURSOR);
     int i, j;
     int x = 1;
     int y = 1;
     char str[80];
+    int offset_guide = szerokosc + 15;
+    int offset = offset_guide + 50;
     gotoxy(1, 1);
     for (i = 0; i < wysokosc; i++) {
         for (j = 0; j < szerokosc; j++) {
@@ -68,7 +71,73 @@ void Swiat::wypiszSwiat(){
         gotoxy(x, wherey());
         y = wherey();
     }
-    gotoxy(x, y);
+    int b_y = 0;
+    gotoxy(offset_guide, ++b_y);
+    sprintf_s(str, "OBSLUGA GRY:");
+    puts(str);
+    gotoxy(offset_guide, ++b_y);
+    sprintf_s(str, "Strzalki - kontrolowanie gracza, nastepna tura");
+    puts(str);
+    gotoxy(offset_guide, ++b_y);
+    sprintf_s(str, "S - zapisz gre");
+    puts(str);
+    gotoxy(offset_guide, ++b_y);
+    sprintf_s(str, "L - wczytaj gre");
+    puts(str);
+    gotoxy(offset_guide, ++b_y);
+    sprintf_s(str, "Q - zakoncz gre");
+    puts(str);
+    gotoxy(offset_guide, ++b_y);
+    sprintf_s(str, "U - umiejetnosc czlowieka");
+    puts(str);
+    gotoxy(offset_guide, ++b_y);
+    sprintf_s(str, "Czlowiek - cooldown umiejetnosci: %d", this->getGracz()->getCooldown());
+    puts(str);
+    if (this->getGracz()->JestNiesmiertelny()) {
+        gotoxy(offset_guide, ++b_y);
+        sprintf_s(str, "Czlowiek - pozostaly czas trwania umiejetnosci: %d", this->getGracz()->getCzasUmiejetnosci());
+        puts(str);
+    }
+
+    b_y = 1;
+    gotoxy(offset, ++b_y);
+    sprintf_s(str, "LEGENDA:");
+    puts(str);
+    gotoxy(offset, ++b_y);
+    sprintf_s(str, "(C) - Czlowiek");
+    puts(str);
+    gotoxy(offset, ++b_y);
+    sprintf_s(str, "(O) - Owca");
+    puts(str);
+    gotoxy(offset, ++b_y);
+    sprintf_s(str, "(W) - Wilk");
+    puts(str);
+    gotoxy(offset, ++b_y);
+    sprintf_s(str, "(A) - Antylopa");
+    puts(str);
+    gotoxy(offset, ++b_y);
+    sprintf_s(str, "(L) - Lis");
+    puts(str);
+    gotoxy(offset, ++b_y);
+    sprintf_s(str, "(Z) - Zolw");
+    puts(str);
+    gotoxy(offset, ++b_y);
+    sprintf_s(str, "(T) - Trawa");
+    puts(str);
+    gotoxy(offset, ++b_y);
+    sprintf_s(str, "(J) - Wilcze Jagody");
+    puts(str);
+    gotoxy(offset, ++b_y);
+    sprintf_s(str, "(B) - Barszcz Sosnowskiego");
+    puts(str);
+    gotoxy(offset, ++b_y);
+    sprintf_s(str, "(M) - Mlecz");
+    puts(str);
+    gotoxy(offset, ++b_y);
+    sprintf_s(str, "(G) - Guarana");
+    puts(str);
+    y +=2;
+    gotoxy(x, ++y);
     sprintf_s(str, "Tura numer: %d", this->tura);
     puts(str);
     gotoxy(x, ++y);
@@ -188,6 +257,9 @@ void Swiat::wczytajGre() {
         delete[] this->plansza;
 
         int s, w, t, ilo;
+        int czas_um, cooldown_um;
+        bool um;
+        plik >> cooldown_um >> czas_um >> um;
         plik >> s >> w >> t >> ilo;
         this->szerokosc = s;
         this->wysokosc = w;
@@ -195,7 +267,7 @@ void Swiat::wczytajGre() {
         this->iloscOrganizmow = ilo;
        
 
-        this->plansza = new Organizm * *[wysokosc];
+        this->plansza = new Organizm **[wysokosc];
         for (int i = 0; i < wysokosc; i++) {
             plansza[i] = new Organizm * [szerokosc];
             for (int j = 0; j < szerokosc; j++) {
@@ -216,6 +288,10 @@ void Swiat::wczytajGre() {
             Organizm* nowy_organizm = this->odczytajOrganizm(znak, x, y);
             if (nowy_organizm == nullptr)
                 continue;
+            Czlowiek* czlowiek = dynamic_cast<Czlowiek*>(nowy_organizm);
+            if (czlowiek != nullptr) {
+                czlowiek->setUmiejetnosc(czas_um, cooldown_um, um);
+            }
             nowy_organizm->setStanOrg(stan);
             nowy_organizm->setWiek(wiek);
             nowy_organizm->setSila(sila);
@@ -260,6 +336,9 @@ void Swiat::zapiszGre() {
     ofstream plik(nazwa_folderu+nazwa_pliku+rozszerzenie);
     cout << "\nZapisuje gre jako " << nazwa_pliku << "...\n";
     if (plik.is_open()) {
+        plik << this->getGracz()->getCooldown() << endl;
+        plik << this->getGracz()->getCzasUmiejetnosci() << endl;
+        plik << this->getGracz()->JestNiesmiertelny() << endl;
         plik << szerokosc << endl;
         plik << wysokosc << endl;
         plik << tura << endl;

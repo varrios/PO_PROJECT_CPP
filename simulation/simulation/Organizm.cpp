@@ -110,6 +110,10 @@ bool Organizm::dodajeSile(Organizm* organizmAtakujacy) {
     return false;
 }
 
+bool Organizm::JestNiesmiertelny() {
+    return false;
+}
+
 void Organizm::setSila(int sila) {
     this->sila = sila;
 }

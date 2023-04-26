@@ -94,7 +94,6 @@ void Zwierze::kolizja(Organizm *organizmAtakowany) {
        return;
     }
    //WALKA
-    else {
        if (organizmAtakowany->dodajeSile(this)) {
            sprintf_s(str, "Rezultat w.w. ruchu - %s zjada %s i dostaje wiecej sily. Aktualna sila: %d (%d, %d)", typeid(*this).name(), typeid(*organizmAtakowany).name(), this->getSila(),organizmAtakowany->getX() , organizmAtakowany->getY());
            organizmAtakowany->umrzyj();
@@ -102,7 +101,7 @@ void Zwierze::kolizja(Organizm *organizmAtakowany) {
            puts(str);
            return;
         }
-        if (organizmAtakowany->czyTrujacy()) {
+        if (organizmAtakowany->czyTrujacy() && !this->JestNiesmiertelny()) {
            organizmAtakowany->umrzyj();
            this->umrzyj();
            sprintf_s(str, "Rezultat w.w. ruchu - %s zjada %s i umiera (%d, %d)", typeid(*this).name(), typeid(*organizmAtakowany).name(),organizmAtakowany->getX(), organizmAtakowany->getY());
@@ -120,6 +119,20 @@ void Zwierze::kolizja(Organizm *organizmAtakowany) {
             return;
         }
         else if (this->getSila() >= organizmAtakowany->getSila()) {
+            if (organizmAtakowany->JestNiesmiertelny()) {
+                Punkt nowa_pozycja = organizmAtakowany->losujKierunekNiezajety();
+                if (nowa_pozycja.x == -1) {
+                    sprintf_s(str, "Rezultat w.w. ruchu - Czlowiek jest niesmiertelny - nie ma miejsca na zmiane polozenia");
+                    puts(str);
+                    return;
+                }
+                Zwierze* zwierze_atakowane = dynamic_cast<Zwierze*>(organizmAtakowany);
+                this->wykonajRuch(organizmAtakowany->getX(), organizmAtakowany->getY());
+                zwierze_atakowane->wykonajRuch(nowa_pozycja.x, nowa_pozycja.y);
+                sprintf_s(str, "Rezultat w.w. ruchu - Czlowiek jest niesmiertelny - nowa pozycja (%d, %d)", nowa_pozycja.x, nowa_pozycja.y);
+                puts(str);
+                return;
+            }
             sprintf_s(str, "Rezultat w.w. ruchu - %s zabija %s (%d, %d)", typeid(*this).name(), typeid(*organizmAtakowany).name(), organizmAtakowany->getX(), organizmAtakowany->getY());
             puts(str);
             organizmAtakowany->umrzyj();
@@ -128,14 +141,25 @@ void Zwierze::kolizja(Organizm *organizmAtakowany) {
         }
         else 
         {
+            if (this->JestNiesmiertelny()) {
+                Punkt nowa_pozycja = this->losujKierunekNiezajety();
+                if (nowa_pozycja.x == -1) {
+                    sprintf_s(str, "Rezultat w.w. ruchu - Czlowiek jest niesmiertelny - nie ma miejsca na zmiane polozenia");
+                    puts(str);
+                    return;
+                }
+                Zwierze* zwierze_atakowane = dynamic_cast<Zwierze*>(this);
+                this->wykonajRuch(nowa_pozycja.x, nowa_pozycja.y);
+                sprintf_s(str, "Rezultat w.w. ruchu - Czlowiek jest niesmiertelny - nowa pozycja (%d, %d)", nowa_pozycja.x, nowa_pozycja.y);
+                puts(str);
+                return;
+            }
             sprintf_s(str, "Rezultat w.w. ruchu - %s zabija %s (%d, %d)",typeid(*organizmAtakowany).name(), typeid(*this).name(), organizmAtakowany->getX(), organizmAtakowany->getY());
             puts(str);
             this->umrzyj();
-            this->swiat->getPlansza()[organizmAtakowany->getY()][organizmAtakowany->getX()] = organizmAtakowany;
+            //this->swiat->getPlansza()[organizmAtakowany->getY()][organizmAtakowany->getX()] = organizmAtakowany;
             return;
         }
-    }
-
 }
 
 void Zwierze::wykonajRuch(int x, int y) {

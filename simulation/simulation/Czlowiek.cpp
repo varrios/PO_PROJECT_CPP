@@ -8,6 +8,8 @@ using namespace std;
 #define ARROW_RIGHT 0x4d
 
 Czlowiek::Czlowiek(int x, int y, Swiat* swiat) {
+	this->cooldown = 5;
+	this->niesmiertelnosc = false;
 	this->wybor = 0;
 	this->swiat = swiat;
 	this->sila = 5;
@@ -27,6 +29,16 @@ Organizm* Czlowiek::stworzDziecko(int x, int y) {
 }
 
 void Czlowiek::akcja() {
+	if (cooldown > 0 && niesmiertelnosc == false) {
+		cooldown--;
+	}
+	else if (niesmiertelnosc == true) {
+		if (--czas_trwania_umiejetnosci == 0) {
+			cooldown = 5;
+			czas_trwania_umiejetnosci = 5;
+			niesmiertelnosc = false;
+		}
+	}
 	int znak = this->wybor;
 	this->polozenie_wczesniejsze = Punkt(this->getX(), this->getY());
 	Punkt nowe_polozenie(this->getX(), this->getY());
@@ -74,4 +86,31 @@ bool Czlowiek::sprawdzGatunki(Organizm* org) {
 		return 1;
 	}
 	return 0;
+}
+
+bool Czlowiek::JestNiesmiertelny() {
+	return this->niesmiertelnosc;
+}
+
+void Czlowiek::uzyjUmiejetnosci() {
+	if (cooldown == 0 && niesmiertelnosc == false) {
+		this->niesmiertelnosc = true;
+		this->cooldown = 5;
+		this->czas_trwania_umiejetnosci = 5;
+	}
+}
+
+int Czlowiek::getCooldown() {
+	return this->cooldown;
+}
+
+int Czlowiek::getCzasUmiejetnosci() {
+	return this->czas_trwania_umiejetnosci;
+}
+
+
+void Czlowiek::setUmiejetnosc(int czas_trwania, int cooldown, bool niesmiertelnosc) {
+	this->czas_trwania_umiejetnosci = czas_trwania;
+	this->cooldown = cooldown;
+	this->niesmiertelnosc = niesmiertelnosc;
 }
