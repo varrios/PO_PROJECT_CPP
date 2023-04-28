@@ -18,7 +18,9 @@
 using namespace std;
 int main()
 {
-    Swiat swiat(10, 10);
+    Swiat swiat(20, 20);
+    swiat.WybierzRozmiar();
+    swiat.StworzMape();
     swiat.stworzPopulacje();
     Czlowiek* czlowiek = new Czlowiek(0, 0, &swiat);
     swiat.ustawGracza(czlowiek);

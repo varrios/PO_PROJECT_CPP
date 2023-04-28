@@ -31,9 +31,13 @@ Swiat::Swiat(int szerokosc, int wysokosc) : szerokosc(szerokosc), wysokosc(wysok
     textcolor(7);
     tura = 0;
     iloscOrganizmow = 0;
-    this->plansza = new Organizm** [wysokosc];
+}
+
+void Swiat::StworzMape()
+{
+    this->plansza = new Organizm * *[wysokosc];
     for (int i = 0; i < wysokosc; i++) {
-        plansza[i] = new Organizm*[szerokosc];
+        plansza[i] = new Organizm * [szerokosc];
         for (int j = 0; j < szerokosc; j++) {
             plansza[i][j] = nullptr;
         }
@@ -54,7 +58,7 @@ void Swiat::wypiszSwiat(){
     int x = 1;
     int y = 1;
     char str[80];
-    int offset_guide = szerokosc + 15;
+    int offset_guide = 2*szerokosc+1;
     int offset = offset_guide + 50;
     gotoxy(1, 1);
     for (i = 0; i < wysokosc; i++) {
@@ -356,7 +360,7 @@ void Swiat::zapiszGre() {
 
         for (int y = 0; y < wysokosc; y++) {
             for (int x = 0; x < szerokosc; x++) {
-                plik << plansza[x][y] << endl;
+                plik << plansza[y][x] << endl;
             }
         }
         plik.close();
@@ -409,4 +413,46 @@ void Swiat::UsunOrganizmy() {
             delete org;
     }
     this->listaOrganizmow.clear();
+}
+
+
+void Swiat::WybierzRozmiar(){
+	clrscr();
+	gotoxy(0, 0);
+	puts("Wybierz szerokosc mapy:");
+    string szerokoscM;
+    string wysokoscM;
+    int c;
+    while ((c = getch()) != '\r') {
+        if (c == '\b') {
+            if (!szerokoscM.empty()) {
+                szerokoscM.erase(szerokoscM.size() - 1);
+                cout << "\b \b";
+            }
+        }
+        else {
+            szerokoscM += c;
+            putch(c);
+        }
+    }
+    puts("\n");
+    puts("Wybierz wysokosc mapy:");
+    while ((c = getch()) != '\r') {
+        if (c == '\b') {
+            if (!wysokoscM.empty()) {
+                wysokoscM.erase(wysokoscM.size() - 1);
+                cout << "\b \b";
+            }
+        }
+        else {
+            wysokoscM += c;
+            putch(c);
+        }
+    }
+    this->szerokosc = stoi(szerokoscM);
+    this->wysokosc = stoi(wysokoscM);
+    puts("\n");
+    printf("Wybrano rozmiar: %d x %d", this->szerokosc, this->wysokosc);
+    Sleep(1500);
+    clrscr();
 }

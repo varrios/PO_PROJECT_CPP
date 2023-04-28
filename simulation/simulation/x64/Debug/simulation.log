@@ -1,38 +1,4 @@
-﻿  Antylopa.cpp
-  BarszczSosnowskiego.cpp
-  Czlowiek.cpp
-  Guarana.cpp
-  Lis.cpp
-  Mlecz.cpp
-  Organizm.cpp
-G:\git\PO_PROJECT_CPP\simulation\simulation\Organizm.cpp(64,70): warning C4267: "argument": konwersja z "size_t" do "_Ty", możliwa utrata danych
-          with
-          [
-              _Ty=int
-          ]
-  Owca.cpp
-  Roslina.cpp
-  Swiat.cpp
-G:\git\PO_PROJECT_CPP\simulation\simulation\Swiat.cpp(152,51): warning C4267: "=": konwersja z "size_t" do "int", możliwa utrata danych
-G:\git\PO_PROJECT_CPP\simulation\simulation\Swiat.cpp(202,51): warning C4267: "=": konwersja z "size_t" do "int", możliwa utrata danych
-  Trawa.cpp
-  WilczeJagody.cpp
-  Wilk.cpp
-  Zolw.cpp
-  Zwierze.cpp
-G:\git\PO_PROJECT_CPP\simulation\simulation\Zwierze.cpp(36,68): warning C4267: "argument": konwersja z "size_t" do "_Ty", możliwa utrata danych
-          with
-          [
-              _Ty=int
-          ]
-G:\git\PO_PROJECT_CPP\simulation\simulation\Zwierze.cpp(97,11): error C2248: "Organizm::dodajeSile": nie można uzyskać dostępu do protected składowa zadeklarowanych w klasie "Organizm"
-G:\git\PO_PROJECT_CPP\simulation\simulation\Organizm.h(16): message : zobacz deklarację „Organizm::dodajeSile”
-G:\git\PO_PROJECT_CPP\simulation\simulation\Organizm.h(5): message : zobacz deklarację „Organizm”
-G:\git\PO_PROJECT_CPP\simulation\simulation\Zwierze.cpp(104,12): error C2248: "Organizm::czyTrujacy": nie można uzyskać dostępu do protected składowa zadeklarowanych w klasie "Organizm"
-G:\git\PO_PROJECT_CPP\simulation\simulation\Organizm.h(17): message : zobacz deklarację „Organizm::czyTrujacy”
-G:\git\PO_PROJECT_CPP\simulation\simulation\Organizm.h(5): message : zobacz deklarację „Organizm”
-G:\git\PO_PROJECT_CPP\simulation\simulation\Zwierze.cpp(116,17): error C2248: "Organizm::czyUcieczka": nie można uzyskać dostępu do protected składowa zadeklarowanych w klasie "Organizm"
-G:\git\PO_PROJECT_CPP\simulation\simulation\Organizm.h(15): message : zobacz deklarację „Organizm::czyUcieczka”
-G:\git\PO_PROJECT_CPP\simulation\simulation\Organizm.h(5): message : zobacz deklarację „Organizm”
-  simulation.cpp
-  Generowanie kodu...
+﻿  Swiat.cpp
+G:\git\PO_PROJECT_CPP\simulation\simulation\Swiat.cpp(156,51): warning C4267: "=": konwersja z "size_t" do "int", możliwa utrata danych
+G:\git\PO_PROJECT_CPP\simulation\simulation\Swiat.cpp(206,51): warning C4267: "=": konwersja z "size_t" do "int", możliwa utrata danych
+  simulation.vcxproj -> G:\git\PO_PROJECT_CPP\simulation\x64\Debug\simulation.exe

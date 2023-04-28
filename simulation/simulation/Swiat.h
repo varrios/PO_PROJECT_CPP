@@ -36,4 +36,6 @@ public:
     void wczytajGre();
     void zapiszGre();
     Organizm* odczytajOrganizm(int znak, int x, int y);
+    void WybierzRozmiar();
+    void StworzMape();
 };
